@@ -1,4 +1,4 @@
-namespace CRUD_WebAppEvaluation.Models
+namespace CRUD_WebAppEvaluation.MVC.Models
 {
     public class ErrorViewModel
     {

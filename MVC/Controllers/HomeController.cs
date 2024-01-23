@@ -1,8 +1,8 @@
-using CRUD_WebAppEvaluation.Models;
+using CRUD_WebAppEvaluation.MVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace CRUD_WebAppEvaluation.Controllers
+namespace CRUD_WebAppEvaluation.MVC.Controllers
 {
     public class HomeController : Controller
     {
