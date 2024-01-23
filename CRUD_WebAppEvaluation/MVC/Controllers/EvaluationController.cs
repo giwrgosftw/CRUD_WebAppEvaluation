@@ -1,6 +1,6 @@
 ﻿using CRUD_WebAppEvaluation.DbApplicationContext;
 using CRUD_WebAppEvaluation.MVC.Models;
-using CRUD_WebAppEvaluation.MVC.Service;
+using CRUD_WebAppEvaluation.MVC.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
 

@@ -2,7 +2,7 @@
 using CRUD_WebAppEvaluation.MVC.Repository;
 using System.Data;
 
-namespace CRUD_WebAppEvaluation.MVC.Service
+namespace CRUD_WebAppEvaluation.MVC.Services
 {
     public class EvaluationServiceImpl : EvaluationService
     {

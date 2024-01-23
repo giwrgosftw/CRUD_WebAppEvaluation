@@ -1,2 +1,2 @@
 # CRUD_WebAppEvaluation
- An application designed to perform CRUD operations and developed using C# .NET Core and AngularJS
+A simple application designed to perform CRUD operations on a table called "Evaluation" and it was built using C# .NET Core, AngularJS and MS SQL Server.

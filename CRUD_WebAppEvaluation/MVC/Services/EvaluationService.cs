@@ -1,6 +1,6 @@
 ﻿using CRUD_WebAppEvaluation.DbApplicationContext;
 
-namespace CRUD_WebAppEvaluation.MVC.Service
+namespace CRUD_WebAppEvaluation.MVC.Services
 {
     public interface EvaluationService
     {

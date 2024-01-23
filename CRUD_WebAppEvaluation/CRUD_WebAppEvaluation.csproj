@@ -16,7 +16,7 @@
 
   <ItemGroup>
     <Folder Include="DbApplicationContext\" />
-    <Folder Include="MVC\Service\" />
+    <Folder Include="MVC\Services\" />
   </ItemGroup>
 
 </Project>
