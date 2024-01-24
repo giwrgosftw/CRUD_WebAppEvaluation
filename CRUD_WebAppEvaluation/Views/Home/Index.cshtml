@@ -1,4 +1,5 @@
 ﻿@{
+    <!-- Define browser top-tab title -->
     ViewData["Title"] = "Home Page";
 }
 
@@ -6,3 +7,172 @@
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+<p id="message"></p> <!-- a response message coming from the backend for Add/Update/Delete -->
+
+<div data-ng-app="RESTClientModule">
+    <div data-ng-controller="CRUD_ControllerEvaluations">
+
+        <!-- Tables, buttons, forms added from now on -->
+        <!-- Get an ALL evaluations -->
+        <button ng-click="getAllEvaluations()">Get All Evaluations</button>
+        <table style="border-collapse: collapse;">
+            <thead>
+                <tr>
+                    <th style="border: 1px solid black;">Select</th>
+                    <th style="border: 1px solid black;">New Tab</th>
+                    <th style="border: 1px solid black;">Delete</th>
+                    <th style="border: 1px solid black;">Start Date</th>
+                    <th style="border: 1px solid black;">Store ID</th>
+                    <th style="border: 1px solid black;">ID</th>
+                    <th style="border: 1px solid black;">Details ID</th>
+                    <th style="border: 1px solid black;">Score</th>
+                    <th style="border: 1px solid black;">Comments</th>
+                    <th style="border: 1px solid black;">If Amount Asset</th>
+                    <th style="border: 1px solid black;">Amount Asset</th>
+                    <th style="border: 1px solid black;">Date Asset</th>
+                    <th style="border: 1px solid black;">Amount Remain</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="evaluation in evaluations">
+                    <td style="border: 1px solid black;">
+                        <!-- Save (copy) the data so that it is automatically filled in the other form -->
+                        <button ng-click="selectEvaluation(evaluation)">Select</button>
+                    </td>
+                    <td style="border: 1px solid black;">
+                        <button ng-click="getEvaluationDetails(evaluation.id)">New Tab</button>
+                    </td>
+                    <td style="border: 1px solid black;">
+                        <button ng-click="deleteEvaluation(evaluation.id)">Delete</button>
+                    </td>
+                    <td style="border: 1px solid black;">{{ evaluation.startDate }}</td>
+                    <td style="border: 1px solid black;">{{ evaluation.storeid }}</td>
+                    <td style="border: 1px solid black;">{{ evaluation.id }}</td>
+                    <td style="border: 1px solid black;">{{ evaluation.detid }}</td>
+                    <td style="border: 1px solid black;">{{ evaluation.score }}</td>
+                    <td style="border: 1px solid black;">{{ evaluation.comments }}</td>
+                    <td style="border: 1px solid black;">{{ evaluation.ifAmountAsset }}</td>
+                    <td style="border: 1px solid black;">{{ evaluation.amountAsset }}</td>
+                    <td style="border: 1px solid black;">{{ evaluation.dateAsset }}</td>
+                    <td style="border: 1px solid black;">{{ evaluation.amountRemain }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <br />
+
+        <!-- Get an Evaluation by id -->
+        <form>
+            <label>Search/Update/Delete Evaluation by ID: <input type="number" ng-model="thisEvaluation.id" required></label>
+            <button type="button" ng-click="getEvaluationByIdPost(thisEvaluation)">Get Evaluation by ID</button>
+            <!-- Display the result -->
+            <div ng-show="evaluation">
+                <h3>Result:</h3>
+                <table style="border-collapse: collapse;">
+                    <thead>
+                        <tr>
+                            <th style="border: 1px solid black;">Start Date</th>
+                            <th style="border: 1px solid black;">Store ID</th>
+                            <th style="border: 1px solid black;">ID</th>
+                            <th style="border: 1px solid black;">Details ID</th>
+                            <th style="border: 1px solid black;">Score</th>
+                            <th style="border: 1px solid black;">Comments</th>
+                            <th style="border: 1px solid black;">If Amount Asset</th>
+                            <th style="border: 1px solid black;">Amount Asset</th>
+                            <th style="border: 1px solid black;">Date Asset</th>
+                            <th style="border: 1px solid black;">Amount Remain</th>
+                            <th style="border: 1px solid black;">Update</th>
+                            <th style="border: 1px solid black;">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="border: 1px solid black;"><input type="text" ng-model="evaluation.startDate"> </td>
+                            <td style="border: 1px solid black;"><input type="text" ng-model="evaluation.storeid" style="width: 100px;"> </td>
+                            <td style="border: 1px solid black;"><input type="text" ng-model="evaluation.id" style="width: 100px;"></td>
+                            <td style="border: 1px solid black;"><input type="text" ng-model="evaluation.detid" style="width: 100px;"></td>
+                            <td style="border: 1px solid black;"><input type="text" ng-model="evaluation.score" style="width: 100px;"></td>
+                            <td style="border: 1px solid black;"><input type="text" ng-model="evaluation.comments" style="width: 250px;"></td>
+                            <td style="border: 1px solid black;"><input type="checkbox" ng-model="evaluation.ifAmountAsset" ng-true-value="true" ng-false-value="false" style="width: 100px;"></td>
+                            <td style="border: 1px solid black;"><input type="text" ng-model="evaluation.amountAsset" style="width: 100px;"></td>
+                            <td style="border: 1px solid black;"><input type="text" ng-model="evaluation.dateAsset" style="width: 200px;"></td>
+                            <td style="border: 1px solid black;"><input type="text" ng-model="evaluation.amountRemain" style="width: 100px;"></td>
+                            <td style="border: 1px solid black;">
+                                <button ng-click="updateEvaluation(evaluation)">Update</button>
+                            </td>
+                            <td style="border: 1px solid black;">
+                                <button ng-click="deleteAndReset(thisEvaluation)">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </form>
+
+        <br />
+        <br />
+
+        <!-- Add/Update Evaluation -->
+        <form>
+            <div ng-init="theEvaluation.ifAmountAsset=false"></div> <!-- Initialize checkbox to false -->
+            <table>
+                <tr>
+                    <td><label for="startDate">Start Date:</label></td>
+                    <td><input type="text" id="startDate" ng-model="theEvaluation.startDate" required></td>
+                </tr>
+                <tr>
+                    <td><label for="storeId">Store ID:</label></td>
+                    <td><input type="number" id="storeId" ng-model="theEvaluation.storeid"></td>
+                </tr>
+                <tr>
+                    <td><label for="id">ID:</label></td>
+                    <td><input type="number" id="id" ng-model="theEvaluation.id" required></td>
+                </tr>
+                <tr>
+                    <td><label for="detid">Details ID:</label></td>
+                    <td><input type="number" id="detid" ng-model="theEvaluation.detid" min="0" max="255"></td>
+                </tr>
+                <tr>
+                    <td><label for="score">Score:</label></td>
+                    <td><input type="number" id="score" ng-model="theEvaluation.score" min="0" max="255"></td>
+                </tr>
+                <tr>
+                    <td><label for="comments">Comments:</label></td>
+                    <td><input type="text" id="comments" ng-model="theEvaluation.comments" maxlength="500"></td>
+                </tr>
+                <tr>
+                    <td><label for="ifAmountAsset">If Amount Asset:</label></td>
+                    <td><input type="checkbox" id="ifAmountAsset" ng-model="theEvaluation.ifAmountAsset" ng-true-value="true" ng-false-value="false"></td>
+                </tr>
+
+                <tr>
+                    <td><label for="amountAsset">Amount Asset:</label></td>
+                    <td><input type="number" id="amountAsset" ng-model="theEvaluation.amountAsset"></td>
+                </tr>
+                <tr>
+                    <td><label for="dateAsset">Date Asset:</label></td>
+                    <td><input type="date" id="dateAsset" ng-model="theEvaluation.dateAsset"></td>
+                </tr>
+                <tr>
+                    <td><label for="amountRemain">Amount Remain:</label></td>
+                    <td><input type="number" id="amountRemain" ng-model="theEvaluation.amountRemain"></td>
+                </tr>
+            </table>
+            <!-- Add Button -->
+            <button ng-click="addNewEvaluation(theEvaluation)">Add</button>
+            <button ng-click="updateEvaluation(theEvaluation)">Update</button>
+        </form>
+
+        <br />
+        <br />
+        <!-- Form to delete an evaluation by ID -->
+        <form ng-submit="deleteEvaluation(inputEvaluationId)">
+            <label>Delete Evaluation by ID: <input type="text" ng-model="inputEvaluationId" required></label>
+            <button type="submit">Delete</button>
+        </form>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.js"></script>
+<script src="~/js/evaluationcontroller.js" type="module"></script>

@@ -1,0 +1,62 @@
+﻿@{
+    ViewData["Title"] = "Evaluation Details";
+}
+
+<p id="message"></p>
+
+
+<h1>Evaluation Details</h1>
+
+<!-- Add other details as needed -->
+
+<div data-ng-app="RESTClientModule">
+    <!-- ng-init => Call the 'getEvaluationIdByURL()' (which includes the 'theEvalutionId') while load the page -->
+    <div data-ng-controller="CRUD_ControllerEvaluations" ng-init="getEvaluationIdByURL()">
+        <!-- Subtitle moved here since the 'theEvalutionId' is declared by the Controller -->
+        <p>Details for evaluation with ID: {{theEvalutionId}}</p>
+        <!-- Define and assign a value with EvaluationId (getEvaluationByIdGet() gives back a populated 'evaluation' object) -->
+        <div ng-init="getEvaluationByIdGet(theEvalutionId)"></div>
+        <!-- Evaluations table -->
+        <table style="border-collapse: collapse;">
+            <thead>
+                <tr>
+                    <th style="border: 1px solid black;">Start Date</th>
+                    <th style="border: 1px solid black;">Store ID</th>
+                    <th style="border: 1px solid black;">ID</th>
+                    <th style="border: 1px solid black;">Details ID</th>
+                    <th style="border: 1px solid black;">Score</th>
+                    <th style="border: 1px solid black;">Comments</th>
+                    <th style="border: 1px solid black;">If Amount Asset</th>
+                    <th style="border: 1px solid black;">Amount Asset</th>
+                    <th style="border: 1px solid black;">Date Asset</th>
+                    <th style="border: 1px solid black;">Amount Remain</th>
+                    <th style="border: 1px solid black;">Update</th>
+                    <th style="border: 1px solid black;">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="border: 1px solid black;"><input type="text" ng-model="evaluation.startDate"> </td>
+                    <td style="border: 1px solid black;"><input type="text" ng-model="evaluation.storeid" style="width: 100px;"> </td>
+                    <td style="border: 1px solid black;"><input type="text" ng-model="evaluation.id" style="width: 100px;"></td>
+                    <td style="border: 1px solid black;"><input type="text" ng-model="evaluation.detid" style="width: 100px;"></td>
+                    <td style="border: 1px solid black;"><input type="text" ng-model="evaluation.score" style="width: 100px;"></td>
+                    <td style="border: 1px solid black;"><input type="text" ng-model="evaluation.comments" style="width: 250px;"></td>
+                    <td style="border: 1px solid black;"><input type="checkbox" ng-model="evaluation.ifAmountAsset" ng-true-value="true" ng-false-value="false" style="width: 100px;"></td>
+                    <td style="border: 1px solid black;"><input type="text" ng-model="evaluation.amountAsset" style="width: 100px;"></td>
+                    <td style="border: 1px solid black;"><input type="text" ng-model="evaluation.dateAsset" style="width: 200px;"></td>
+                    <td style="border: 1px solid black;"><input type="text" ng-model="evaluation.amountRemain" style="width: 100px;"></td>
+                    <td style="border: 1px solid black;">
+                        <button ng-click="updateEvaluation(evaluation)">Update</button>
+                    </td>
+                    <td style="border: 1px solid black;">
+                        <button ng-click="deleteAndBackHome(evaluation)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.js"></script>
+<script src="~/js/evaluationcontroller.js" type="module"></script>
