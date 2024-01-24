@@ -49,8 +49,8 @@ namespace CRUD_WebAppEvaluation.MVC.Controllers
             }
         }
 
-        [HttpGet("getAllEvaluation")]
-        public IActionResult GetAllEvaluation()
+        [HttpGet("getAllEvaluations")]
+        public IActionResult GetAllEvaluations()
         {
             try
             {

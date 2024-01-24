@@ -2,7 +2,7 @@
 
 namespace CRUD_WebAppEvaluation.MVC.Repository
 {
-    public class EvaluationRepositoryImpl : ConnectionDB
+    public class EvaluationRepositoryImpl : ConnectionDB, EvaluationRepository
     {
         private readonly ILogger<EvaluationRepositoryImpl> _logger;
 

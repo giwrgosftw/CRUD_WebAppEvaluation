@@ -1,4 +1,14 @@
+using CRUD_WebAppEvaluation.MVC.Repository;
+using CRUD_WebAppEvaluation.MVC.Services;
+
 var builder = WebApplication.CreateBuilder(args);
+
+/* Dependency Injection */
+// Repositories
+builder.Services.AddScoped<EvaluationRepository, EvaluationRepositoryImpl>();
+// Services
+builder.Services.AddScoped<EvaluationService, EvaluationServiceImpl>();
+/* ################## */
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
