@@ -197,16 +197,14 @@ namespace CRUD_WebAppEvaluationTest.Services
         {
             // Arrange
             int evaluationId = 1;
-            var mockEvaluation = new Evaluation { Id = evaluationId };
-
-            mockEvaluationRepository.Setup(repo => repo.FindById(evaluationId)).Returns(mockEvaluation);
+            mockEvaluationRepository.Setup(repo => repo.FindById(evaluationId)).Returns(evaluation);
 
             // Act
             var result = mockEvaluationService.FindEvaluationById(evaluationId);
 
             // Assert
             Assert.IsNotNull(result);
-            Assert.AreEqual(mockEvaluation, result);
+            Assert.AreEqual(evaluation, result);
         }
 
         [TestMethod]
